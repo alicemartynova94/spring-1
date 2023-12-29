@@ -15,7 +15,7 @@ public class TaskDAO {
 
     private final SessionFactory sessionFactory;
 
-    public TaskDAO(SessionFactory sessionFactory){
+    public TaskDAO(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -28,12 +28,17 @@ public class TaskDAO {
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-    public int getTotalNumberOfTasks(){
+    public int getTotalNumberOfTasks() {
         Query<Long> query = getSession().createQuery("select count(t) from Task t", Long.class);
         return Math.toIntExact(query.uniqueResult());
     }
 
-    private Session getSession(){
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void saveOrUpdate(Task task) {
+        getSession().persist(task);
+    }
+
+    private Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 }
