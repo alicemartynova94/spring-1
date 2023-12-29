@@ -38,6 +38,11 @@ public class TaskDAO {
         getSession().persist(task);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void delete(Task task){
+        getSession().remove(task);
+    }
+
     private Session getSession() {
         return sessionFactory.getCurrentSession();
     }
