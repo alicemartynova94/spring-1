@@ -43,6 +43,13 @@ public class TaskDAO {
         getSession().remove(task);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Task getTaskById(int id){
+        Query<Task> query = getSession().createQuery("select t from Task t where t.id = :ID", Task.class);
+        query.setParameter("ID", id);
+        return query.uniqueResult();
+    }
+
     private Session getSession() {
         return sessionFactory.getCurrentSession();
     }
