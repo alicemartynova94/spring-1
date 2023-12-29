@@ -39,5 +39,19 @@ public class TaskService {
         return task;
     }
 
-   
+    public Task create(String description, Status status){
+        Task task = new Task();
+        task.setDescription(description);
+        task.setStatus(status);
+        taskDAO.saveOrUpdate(task);
+        return task;
+    }
+    @Transactional
+    public void delete(int id){
+        Task task = taskDAO.getTaskById(id);
+        if (isNull(task)) {
+            throw new RuntimeException("Not found");
+        }
+        taskDAO.delete(task);
+    }
 }
