@@ -20,11 +20,17 @@ public class TaskDAO {
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public List<Task> getAll(int offset, int limit) {
+    public List<Task> getAllTasks(int offset, int limit) {
         Query<Task> query = getSession().createQuery("select t from Task t", Task.class);
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         return query.getResultList();
+    }
+
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+    public int getTotalNumberOfTasks(){
+        Query<Long> query = getSession().createQuery("select count(t) from Task t", Long.class);
+        return Math.toIntExact(query.uniqueResult());
     }
 
     private Session getSession(){
