@@ -9,9 +9,9 @@
 <table>
     <thead>
     <tr>
-    <th>ID</th>
-    <th>Description</th>
-    <th>Status</th>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Status</th>
     </tr>
     </thead>
     <tbody>
@@ -19,7 +19,14 @@
         <td th:text="${task.id}"/>
         <td th:text="${task.description}" th:id="'description_' + ${task.id}"/>
         <td th:text="${task.status}" th:id="'status_' + ${task.id}"/>
+        <td>
+            <button th:id="'edit_' + ${task.id}" th:onclick="'edit_task(' + ${task.id} + ')'"> Edit</button>
+        </td>
+        <td>
+            <button th:id="'delete_' + ${task.id}" th:onclick="'delete_task(' + ${task.id} + ')'"> Delete</button>
+        </td>
     </tbody>
+    
 </table>
 </body>
 </html>
