@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>tasks</title>
+    <link href="style/main.css" rel="stylesheet">
 </head>
 <body>
 <table>
     <thead>
+    <tr>
     <th>ID</th>
     <th>Description</th>
     <th>Status</th>
+    </tr>
     </thead>
     <tbody>
     <tr th:each="task,number : ${tasks}">
