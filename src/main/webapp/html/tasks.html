@@ -26,7 +26,11 @@
             <button th:id="'delete_' + ${task.id}" th:onclick="'delete_task(' + ${task.id} + ')'"> Delete</button>
         </td>
     </tbody>
-    
+    <h2>
+    <button th:each="pageNumber : ${page_numbers}" class="button_page">
+        <a th:href="@{/(page=${pageNumber}, limit=10)}" th:text="${pageNumber}" th:classappend="${pageNumber == current_page ? 'active_page' : ''}"></a>
+    </button>
+    </h2>
 </table>
 </body>
 </html>
