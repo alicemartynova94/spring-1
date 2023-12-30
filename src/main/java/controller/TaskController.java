@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import service.TaskService;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static java.util.Objects.isNull;
 
@@ -28,6 +30,12 @@ public class TaskController {
 
         List<Task> tasks = taskService.getAllTasks((page - 1) * limit, limit);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("current_page", tasks);
+        int pagesTotalCount = (int)Math.ceil(1.0 * taskService.getTotalNumberOfTasks() / limit);
+        if(pagesTotalCount>1){
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, pagesTotalCount).boxed().collect(Collectors.toList());
+            model.addAttribute("page_numbers", pageNumbers);
+        }
         return "tasks";
     }
 
